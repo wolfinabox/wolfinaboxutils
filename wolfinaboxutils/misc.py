@@ -18,14 +18,14 @@ def function_call_str(func,*args,**kwargs)->tuple:
     f_str=str(func.__name__)+'('+arg_strs+')'+(' = '+str(return_val) if ('equals' in kwargs and kwargs['equals']) else '')
     return (f_str,return_val)
 
-def isInt(s:str)->bool:
+def is_int(s:str)->bool:
     try: 
         int(s)
         return True
     except ValueError:
         return False
 
-def isFloat(s:str)->bool:
+def is_float(s:str)->bool:
     try: 
         float(s)
         return True
