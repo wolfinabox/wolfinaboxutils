@@ -47,7 +47,7 @@ def rec_dict_get(key,container:Union[list,tuple,dict],always_list:bool=False):
                 if type(res) in (list,tuple):
                     items+=list(res)
                 else: items.append(res)
-    if not items: return False
+    if not items: return None
     if len(items)==1 and not always_list: return items[0]
     return items
 
