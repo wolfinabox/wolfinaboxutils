@@ -38,10 +38,12 @@ def askYN(question:str,default='')->bool:
     <question> : The question to ask\n
     <default>  : A default option to give
     """
+    default=default.strip().lower()
     response='0'
-    qText=(question+(' ['+default.lower().strip()+']') if default.strip() and default.lower().strip()[0] in ('y','n') else question)+': '
-    while response.lower().strip()[0] not in ('y','n'):
-        response=input(qText)
-        if not response.strip() or response.isspace():
-            if default.lower().strip() in ('y','n'): response=default.lower().strip()
-    return response.lower().strip()[0]=='y'
+    qText=(question+(' ['+default.lower().strip()+']') if default and default[0] in ('y','n') else question)+': '
+    while response[0] not in ('y','n'):
+        response=input(qText).strip().lower()
+        if not response or response.isspace():
+                response=default if default in ('y','n') else '0'
+
+    return response[0]=='y'

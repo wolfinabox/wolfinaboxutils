@@ -10,19 +10,9 @@ def rec_in(item,container:Union[list,tuple])->bool:
     Recursively determine if a given item is in a list of lists (of lists etc...)\n
     <item> : The value to search for\n
     <container> : The list to search in\n
-    return : True/Fals, if the item was found
+    return : True/False, if the item was found
     """
-    #Check if container is not an actual container
-    if not type(container) in (list,tuple):
-        return False
-    #Check if the item is in the current container
-    if item in container:
-        return True
-    #Recursively go through every container in the current container
-    contains=False
-    for i in container:
-            contains= rec_in(item,i)
-    return contains
+    return item in flatten(container)
 
 def rec_dict_get(key,container:Union[list,tuple,dict],always_list:bool=False):
     """
@@ -59,3 +49,20 @@ def any_in(a:Union[list,tuple,dict], b:Union[list,tuple,dict])->bool:
     returns: True/False, whether or not any elements from set a are in set b
     """
     return not set(a).isdisjoint(b)
+
+def flatten(c:Union[list,tuple])->list:
+    """
+    Flatten a list/tuple of list/tuples etc into a single list.
+    """
+    #If c is just a variable
+    if not type(c) in (list,tuple):
+        return [c]
+    #If c is a list or tuple
+    else:
+        res=[]
+        for i in c:
+            res+=flatten(i)
+        return res
+
+#def merge_dict(d1:dict,d2:dict):
+#    True

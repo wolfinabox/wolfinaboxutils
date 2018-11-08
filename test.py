@@ -3,9 +3,10 @@
 # Author: wolfinabox
 # GitHub: https://github.com/wolfinabox/pyutils
 #========================================================#
-from wolfinaboxutils.all import * #Use this to import /all/ of my functions at once, or...
-#from wolfinaboxutils.specific_module import * //To import everything from one specific module
-
+from wolfinaboxutils.formatting import *
+from wolfinaboxutils.misc import *
+from wolfinaboxutils.searches import *
+from wolfinaboxutils.system import *
 
 #SEARCHES
 print('Searches:')
@@ -23,6 +24,10 @@ s2=[4,5,6,7]
 s3=[5,6,7]
 print(function_call_str(any_in,s1,s2,equals=True)[0])
 print(function_call_str(any_in,s1,s3,equals=True)[0])
+
+#Flatten
+ll1=[1,2,(3,4,[5,6],(7,8)),9,10]
+print(function_call_str(flatten,ll1,equals=True)[0])
 
 #FORMATTING
 print('\nFormatting')
@@ -47,12 +52,12 @@ print(function_call_str(local_path,'README.md',equals=True)[0])
 #MISC
 print('\nMisc:')
 #Is Int?
-print(function_call_str(isInt,'42',equals=True)[0])
-print(function_call_str(isInt,'42.0042',equals=True)[0])
+print(function_call_str(is_int,'42',equals=True)[0])
+print(function_call_str(is_int,'42.0042',equals=True)[0])
 
 #Is Float
-print(function_call_str(isFloat,'42',equals=True)[0])
-print(function_call_str(isFloat,'42.0042',equals=True)[0])
+print(function_call_str(is_float,'42',equals=True)[0])
+print(function_call_str(is_float,'42.0042',equals=True)[0])
 
 #Ask Yes/No
-print(function_call_str(askYN,'> Is 42 a good number?','y',equals=True)[0])
+print(function_call_str(askYN,'> Is 42 a good number?',equals=True)[0])
