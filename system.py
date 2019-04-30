@@ -14,7 +14,7 @@ def is_executable()->bool:
 
 def script_dir()->str:
     """
-    Get the path to the current script, whether running as an executable or in an interpreter.\n
+    Get the path to the current script's directory, whether running as an executable or in an interpreter.\n
     returns : A string containing the path to the script directory.
     """
     from os import path
@@ -23,12 +23,28 @@ def script_dir()->str:
 
 def local_path(dir_name:str)->str:
     """
-    Get the absolute path to a local file/directory, whether running as an executable or in an interpreter.\n
+    Get the absolute path to a local file/directory __MEIPASS or .), whether running as an executable or in an interpreter.\n
     returns : A string containing the path to the local file/directory
     """
     from os import path
     import sys
     return path.join(sys._MEIPASS, dir_name) if is_executable() else path.join(script_dir(),dir_name)
+
+def get_encoding(src,guesses:list=None):
+    """
+    Try to guess the encoding of the given text or file.\n
+    `src` Can be a string, or opened file (text or binary)\n
+    `guesses` A list of manual encoding "guesses" to pass to UnicodeDammit\n
+    `returns` A tuple containing the unicode text (if translatable) or None, and the guessed encoding or none
+    """
+    from bs4 import UnicodeDammit
+    from _io import TextIOWrapper,BufferedReader
+    if type(src) in (BufferedReader,):
+            src=b''.join(src.readlines())
+    elif type(src) in (TextIOWrapper,):
+            src=''.join(src.readlines())
+    dammit=UnicodeDammit(src,guesses)
+    return dammit.unicode_markup,dammit.original_encoding
 
 def pLog(message:str,logFilePath:str='log.txt',max_logs=150):
     """
@@ -65,3 +81,6 @@ def log(message:str,logFilePath:str='log.txt',max_logs=150):
     except IOError:
         with open(path,'w') as file:
             file.write(datetime.now().strftime('[%m/%d/%Y-%H:%M:%S]: ')+message+'\n')
+
+
+
